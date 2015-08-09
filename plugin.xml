@@ -17,6 +17,13 @@
 
   <platform name="android">
 
+    <config-file target="AndroidManifest.xml" parent="application">
+      <activity
+        android:name="android.intent.action.VIEW"
+        android:launchMode="singleTop"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+    </config-file>
+
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="Hello">
         <param name="android-package" value="com.example.plugin.Hello"/>
