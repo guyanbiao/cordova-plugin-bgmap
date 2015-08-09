@@ -13,42 +13,32 @@ public class Bgmap extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
-
         if (action.equals("openMapDirection")) {
-
           String url = data.getString(0);
-
           if (url.startsWith("androidamap")) {
-            try {
-              Intent intent = Intent.getIntent(url);
-              if(isInstallByread("com.autonavi.minimap")){
-                cordova.getActivity().startActivity(intent); //启动调用
-              }else{
-                callbackContext.error("未安装高德地图");
-              }
-            } catch (URISyntaxException e) {
-              callbackContext.error("url 格式不正确");
-              e.printStackTrace();
-            }
-            return true;
+            return callMap(url, "com.autonavi.minimap", "未安装高德地图", callbackContext);
           } else {
-            try {
-              Intent intent = Intent.getIntent(url);
-              if(isInstallByread("com.baidu.BaiduMap")){
-                cordova.getActivity().startActivity(intent); //启动调用
-              }else{
-                callbackContext.error("未安装百度地图");
-              }
-            } catch (URISyntaxException e) {
-              callbackContext.error("url 格式不正确");
-              e.printStackTrace();
-            }
-            return true;
+            return callMap(url, "com.baidu.BaiduMap", "未安装百度地图", callbackContext);
           }
-
         } else {
           return false;
         }
+    }
+
+    private boolean callMap(String url, String packageName, String errorMessage, CallbackContext callbackContext) {
+            try {
+              Intent intent = Intent.getIntent(url);
+              if(isInstallByread(packageName)){
+                cordova.getActivity().startActivity(intent); //启动调用
+              }else{
+                callbackContext.error(errorMessage);
+              }
+            } catch (URISyntaxException e) {
+              callbackContext.error("url 格式不正确");
+              e.printStackTrace();
+              return false;
+            }
+            return true;
     }
 
     private boolean isInstallByread(String packageName) {   
