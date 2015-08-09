@@ -1,4 +1,4 @@
-package com.example.plugin;
+package com.sinfotech.bgmap;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
@@ -9,12 +9,12 @@ import android.util.Log;
 import java.net.URISyntaxException;
 
 
-public class Hello extends CordovaPlugin {
+public class Bgmap extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
-        if (action.equals("greet")) {
+        if (action.equals("openMapDirection")) {
 
           String url = data.getString(0);
 
