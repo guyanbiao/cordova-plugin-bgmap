@@ -18,19 +18,33 @@ public class Bgmap extends CordovaPlugin {
 
           String url = data.getString(0);
 
-          try {
-            Intent intent = Intent.getIntent(url);
-            if(isInstallByread("com.baidu.BaiduMap")){
-              cordova.getActivity().startActivity(intent); //启动调用
-              Log.e("GasStation", "百度地图客户端已经安装") ;
-            }else{
-              callbackContext.error("未安装地图");
-              Log.e("GasStation", "没有安装百度地图客户端") ;
+          if (url.startsWith("androidamap")) {
+            try {
+              Intent intent = Intent.getIntent(url);
+              if(isInstallByread("com.autonavi.minimap")){
+                cordova.getActivity().startActivity(intent); //启动调用
+              }else{
+                callbackContext.error("未安装高德地图");
+              }
+            } catch (URISyntaxException e) {
+              callbackContext.error("url 格式不正确");
+              e.printStackTrace();
             }
-          } catch (URISyntaxException e) {
-            e.printStackTrace();
-          }
             return true;
+          } else {
+            try {
+              Intent intent = Intent.getIntent(url);
+              if(isInstallByread("com.baidu.BaiduMap")){
+                cordova.getActivity().startActivity(intent); //启动调用
+              }else{
+                callbackContext.error("未安装百度地图");
+              }
+            } catch (URISyntaxException e) {
+              callbackContext.error("url 格式不正确");
+              e.printStackTrace();
+            }
+            return true;
+          }
 
         } else {
           return false;
