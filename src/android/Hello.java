@@ -22,6 +22,7 @@ public class Hello extends CordovaPlugin {
               cordova.getActivity().startActivity(intent); //启动调用
               Log.e("GasStation", "百度地图客户端已经安装") ;
             }else{
+              callbackContext.error("未安装地图");
               Log.e("GasStation", "没有安装百度地图客户端") ;
             }
           } catch (URISyntaxException e) {
@@ -30,9 +31,7 @@ public class Hello extends CordovaPlugin {
             return true;
 
         } else {
-            
-            return false;
-
+          return false;
         }
     }
 
