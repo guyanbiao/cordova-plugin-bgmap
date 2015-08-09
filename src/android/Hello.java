@@ -16,8 +16,10 @@ public class Hello extends CordovaPlugin {
 
         if (action.equals("greet")) {
 
+          String url = data.getString(0);
+
           try {
-            Intent intent = Intent.getIntent("intent://map/direction?origin=latlng:34.264642646862,108.95108518068|name:我家&destination=大雁塔&mode=driving®ion=西安&referer=Autohome|GasStation#Intent;scheme=bdapp;package=com.baidu.BaiduMap;end");
+            Intent intent = Intent.getIntent(url);
             if(isInstallByread("com.baidu.BaiduMap")){
               cordova.getActivity().startActivity(intent); //启动调用
               Log.e("GasStation", "百度地图客户端已经安装") ;
